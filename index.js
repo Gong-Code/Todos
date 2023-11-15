@@ -86,8 +86,8 @@ const addTodo = async (event) => {
 
 //DELETE
 const deleteTodo = async (id) => {
-    const toDelete = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
-    const response = await fetch(toDelete, {
+    const toDeleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
+    const response = await fetch(toDeleteUrl, {
         method: 'DELETE',
     });
     
