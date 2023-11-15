@@ -7,7 +7,6 @@ const todoList = document.querySelector('.todo-list');
 
 const todoListArr = [];
 
-
 //HTTP Requests
 
 //GET
@@ -60,7 +59,6 @@ const getTodoList = async () => {
 
 getTodoList();
 
-
 //POST
 const addTodo = async (event) => {
     event.preventDefault();
@@ -109,7 +107,7 @@ const deleteTodo = async (id) => {
 todoBtn.addEventListener('click', addTodo);
 // todoList.addEventListener('click', deleteTodo);
 
-// Functions
+//Functions
 function createTodo() {
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
