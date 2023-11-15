@@ -105,7 +105,7 @@ const deleteTodo = async (id) => {
 
 //Event Listeners
 todoBtn.addEventListener('click', addTodo);
-todoList.addEventListener('click', deleteTodo);
+// todoList.addEventListener('click', deleteTodo);
 
 // Functions
 function createTodo() {
