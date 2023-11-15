@@ -97,7 +97,7 @@ const deleteTodo = async (id) => {
     }
 
     const todoData = await response.json();
-    console.log(todoData)
+    console.log("Deleted: " + todoData)
     
     getTodoList();
 }
