@@ -23,6 +23,8 @@ const getTodoList = async () => {
 
     todoListArr.push(todoData);
 
+    console.log(todoListArr)
+
     //Clear the todo list
     todoList.innerHTML = '';
 
