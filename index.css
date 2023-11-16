@@ -5,7 +5,7 @@
 }
 
 body{
-    background-image: linear-gradient(120deg, #2C73D2, #008F7A);
+    background-image: linear-gradient(to right, #2C73D2, #008F7A);
     color: white;   
     font-family: 'poppins', sans-serif;
     min-height: 100vh;
@@ -28,6 +28,22 @@ form input, form button{
     border: none;
     background: white;
 }
+
+form input, form button{
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    background: white;
+}
+
+
+/* .error-message{
+    color: red;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+} */
+
 
 form button{
     color: #2C73D2;
@@ -61,6 +77,7 @@ form button:hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 .todo li{
@@ -86,3 +103,17 @@ form button:hover{
     pointer-events: none;
 }
 
+.fa-trash:hover, .fa-check:hover{
+    transform: scale(1.2);
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.3;
+    transition: all 0.5s ease;
+}
+
+.fall{
+    transform: translate(8rem) rotateZ(20deg);
+    opacity: 0;
+}

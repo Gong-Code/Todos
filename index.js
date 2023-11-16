@@ -9,7 +9,7 @@ const todoListArr = [];
 
 //HTTP Requests
 
-//GET
+// GET
 const getTodoList = async () => {
     const response = await fetch(url);
 
@@ -21,9 +21,7 @@ const getTodoList = async () => {
     const todoData = await response.json();
 
     todoListArr.push(todoData);
-
-    console.log(todoListArr)
-
+    
     //Clear the todo list
     todoList.innerHTML = '';
 
@@ -32,26 +30,45 @@ const getTodoList = async () => {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo');
 
-        const newTodo = document.createElement('li');
-        newTodo.innerText = todo.title;
-        newTodo.classList.add('todo-item');
-        newTodo.setAttribute("id", todo._id);
+        const todoTitle = document.createElement('li');
+        todoTitle.innerText = todo.title;
+        todoTitle.classList.add('todo-item');
+        todoTitle.setAttribute("id", todo._id);
 
-        const completedBtn = document.createElement('button');
-        completedBtn.innerHTML = '<i class="fas fa-check"></i>';
-        completedBtn.classList.add('complete-btn');
-        todoDiv.appendChild(completedBtn);
+        const completeBtn = document.createElement('button');
+        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+        completeBtn.classList.add('complete-btn');
+        completeBtn.setAttribute("id", todo._id);
+        completeBtn.addEventListener('click', async () => {
+            if(completeBtn.classList[0] === 'complete-btn') {
+                todoTitle.classList.toggle('completed');
+                completeBtn.classList.toggle('completed');
+            }
+
+            if(!todo.completed) {
+                await completeTodo (todo._id, true);
+                return;
+            }
+            else{
+                await completeTodo (todo._id, false);
+                return;
+            }
+        });
+        
 
         const deleteBtn = document.createElement('button');
         deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
         deleteBtn.classList.add('trash-btn');
         deleteBtn.setAttribute("id", todo._id);
         deleteBtn.addEventListener('click', async () => {
-            await deleteTodo(todo._id);
+            if(deleteBtn.classList[0] === 'trash-btn') {
+                todoDiv.classList.add('fall');
+                await deleteTodo(todo._id);
+            }
         });
 
-        todoDiv.appendChild(newTodo);
-        todoDiv.appendChild(completedBtn);
+        todoDiv.appendChild(todoTitle);
+        todoDiv.appendChild(completeBtn);
         todoDiv.appendChild(deleteBtn);
         todoList.appendChild(todoDiv);        
     });
@@ -78,8 +95,12 @@ const addTodo = async (event) => {
         return;
     }
 
-    let todoData = await response.json();
-    todoData = createTodo();
+    validateInput(todoInput);
+
+    const todoData = await response.json();
+    console.log(todoData)
+    
+    createTodo();
 
     todoInput.value = "";
 };
@@ -102,33 +123,68 @@ const deleteTodo = async (id) => {
     getTodoList();
 }
 
+//PUT
+const completeTodo = async (id, complete) => {
+    const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
+    console.log(toCompleteUrl)
+    const response = await fetch(toCompleteUrl, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            completed: complete,
+        }),        
+    });
+    
+    if(!response.ok) {
+        console.log(response);
+        return;
+    }
+
+    const todoData = await response.json();
+    console.log("Completed: " + todoData.completed + " " + todoData._id);
+    
+    getTodoList();
+};
+
 
 //Event Listeners
 todoBtn.addEventListener('click', addTodo);
-// todoList.addEventListener('click', deleteTodo);
+
 
 //Functions
 function createTodo() {
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
 
-    const newTodo = document.createElement('li');
-    newTodo.innerText = todoInput.value;
-    newTodo.classList.add('todo-item');
-    newTodo.setAttribute("id", "list-item")
-    todoDiv.appendChild(newTodo);
-    
-    const completedButton = document.createElement('button');
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList.add('complete-btn');
-    todoDiv.appendChild(completedButton);
+    const newTodoTitle = document.createElement('li');
+    newTodoTitle.innerText = todoInput.value;
+    newTodoTitle.classList.add('todo-item');
+    newTodoTitle.setAttribute("id", "list-item")
+    todoDiv.appendChild(newTodoTitle);
+    newTodoTitle
+    const completeBtn = document.createElement('button');
+    completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+    completeBtn.classList.add('complete-btn');
+    todoDiv.appendChild(completeBtn);
 
-    const trashButton = document.createElement('button');
-    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
-    trashButton.classList.add('trash-btn');
-    todoDiv.appendChild(trashButton);
+    const trashBtn = document.createElement('button');
+    trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
+    trashBtn.classList.add('trash-btn');
+    todoDiv.appendChild(trashBtn);
 
     todoList.appendChild(todoDiv);
+}
+
+function validateInput(input){
+    
+    if(input.value.trim() === '' && input.value.length < 2){
+    
+        return false;
+    } else {
+        return true;
+    }
 }
 
 
