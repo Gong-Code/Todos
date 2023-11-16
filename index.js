@@ -42,17 +42,19 @@ const getTodoList = async () => {
         completeBtn.setAttribute("id", todo._id);
         completeBtn.addEventListener('click', async (event) => {
             
-            if(!todo.completed && completeBtn.classList[0] === 'complete-btn') {
+            if(todo.completed === true) { 
                 todoTitle.classList.toggle('completed');
                 completeBtn.classList.toggle('completed');
-                await completeTodo (todo._id, true);
+                todo.completed = false;
+                await completeTodo (todo._id, false);
                 return;
             }
-            else {
-                todoTitle.classList.remove('completed');
-                completeBtn.classList.remove('completed');
-                await completeTodo (todo._id, false);
-                return;   
+            else if(todo.completed === false) {
+                todoTitle.classList.toggle('completed');
+                completeBtn.classList.toggle('completed');
+                todo.completed = true;
+                await completeTodo (todo._id, true);
+                return;
             }
         });
         
