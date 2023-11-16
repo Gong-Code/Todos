@@ -4,6 +4,7 @@ const url = "https://js1-todo-api.vercel.app/api/todos?apikey=f7fd3a3c-eb82-4a22
 const todoInput = document.querySelector('.todo-input');
 const todoBtn = document.querySelector('.todo-btn');
 const todoList = document.querySelector('.todo-list');
+const form = document.querySelector('form');
 
 const todoListArr = [];
 
@@ -39,7 +40,7 @@ const getTodoList = async () => {
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
         completeBtn.classList.add('complete-btn');
         completeBtn.setAttribute("id", todo._id);
-        completeBtn.addEventListener('click', async () => {
+        completeBtn.addEventListener('click', async (event) => {
             if(completeBtn.classList[0] === 'complete-btn') {
                 todoTitle.classList.toggle('completed');
                 completeBtn.classList.toggle('completed');
@@ -47,11 +48,16 @@ const getTodoList = async () => {
 
             if(!todo.completed) {
                 await completeTodo (todo._id, true);
-                return;
             }
             else{
+                if(completeBtn.classList[0] === 'complete-btn') {
+                    todoTitle.classList.remove('completed');
+                    completeBtn.classList.remove('completed');
+                    todoTitle.classList.add('uncompleted');
+                    completeBtn.classList.add('uncompleted');
+                }
                 await completeTodo (todo._id, false);
-                return;
+
             }
         });
         
@@ -62,7 +68,8 @@ const getTodoList = async () => {
         deleteBtn.setAttribute("id", todo._id);
         deleteBtn.addEventListener('click', async () => {
             if(deleteBtn.classList[0] === 'trash-btn') {
-                todoDiv.classList.add('fall');
+                deleteBtn.classList.add('fall');
+                todoTitle.classList.add('fall');
                 await deleteTodo(todo._id);
             }
         });
@@ -125,6 +132,7 @@ const deleteTodo = async (id) => {
 
 //PUT
 const completeTodo = async (id, complete) => {
+    
     const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     console.log(toCompleteUrl)
     const response = await fetch(toCompleteUrl, {
@@ -148,13 +156,38 @@ const completeTodo = async (id, complete) => {
     getTodoList();
 };
 
-
 //Event Listeners
-todoBtn.addEventListener('click', addTodo);
+todoBtn.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            title: todoInput.value,
+        }),
+    });   
+    
+    if(!response.ok) {
+        console.log('Error', response.status);
+        return;
+    }
+
+    validateInput(todoInput);
+
+    const todoData = await response.json();
+    console.log(todoData)
+    
+    createTodo();
+
+    todoInput.value = "";
+});
 
 
 //Functions
 function createTodo() {
+
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
 
@@ -163,7 +196,7 @@ function createTodo() {
     newTodoTitle.classList.add('todo-item');
     newTodoTitle.setAttribute("id", "list-item")
     todoDiv.appendChild(newTodoTitle);
-    newTodoTitle
+
     const completeBtn = document.createElement('button');
     completeBtn.innerHTML = '<i class="fas fa-check"></i>';
     completeBtn.classList.add('complete-btn');
@@ -176,7 +209,7 @@ function createTodo() {
 
     todoList.appendChild(todoDiv);
 }
-
+ 
 function validateInput(input){
     
     if(input.value.trim() === '' && input.value.length < 2){

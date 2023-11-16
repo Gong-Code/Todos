@@ -37,12 +37,12 @@ form input, form button{
 }
 
 
-/* .error-message{
+.error-message{
     color: red;
     font-size: 1rem;
     margin-bottom: 1rem;
     text-align: center;
-} */
+}
 
 
 form button{
@@ -113,7 +113,12 @@ form button:hover{
     transition: all 0.5s ease;
 }
 
+.undoCompleted{
+    text-decoration: none;
+    opacity: 1;
+}
+
 .fall{
-    transform: translate(8rem) rotateZ(20deg);
+    transform: translate(8rem) rotate(20deg);
     opacity: 0;
 }
