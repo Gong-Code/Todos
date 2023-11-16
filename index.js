@@ -45,19 +45,18 @@ const getTodoList = async () => {
                 todoTitle.classList.toggle('completed');
                 completeBtn.classList.toggle('completed');
             }
+            else if(completeBtn.contains('completed')) {
+                todoTitle.classList.toggle('uncompleted');
+                completeBtn.classList.toggle('uncompleted');
+            }
 
             if(!todo.completed) {
                 await completeTodo (todo._id, true);
+                return;
             }
             else{
-                if(completeBtn.classList[0] === 'complete-btn') {
-                    todoTitle.classList.remove('completed');
-                    completeBtn.classList.remove('completed');
-                    todoTitle.classList.add('uncompleted');
-                    completeBtn.classList.add('uncompleted');
-                }
                 await completeTodo (todo._id, false);
-
+                return;
             }
         });
         
