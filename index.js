@@ -41,22 +41,30 @@ const getTodoList = async () => {
         completeBtn.classList.add('complete-btn');
         completeBtn.setAttribute("id", todo._id);
         completeBtn.addEventListener('click', async (event) => {
-            if(completeBtn.classList[0] === 'complete-btn') {
+            
+            // if(completeBtn.classList[0] === 'complete-btn') {
+            //     todoTitle.classList.toggle('completed');
+            //     completeBtn.classList.toggle('completed');
+            //     todoTitle.classList.toggle('uncompleted');
+            //     completeBtn.classList.toggle('uncompleted');
+
+            // }
+            // else if(completeBtn.contains('completed')) {
+            //     todoTitle.classList.toggle('uncompleted');
+            //     completeBtn.classList.toggle('uncompleted');
+            // }
+
+            if(!todo.completed && completeBtn.classList[0] === 'complete-btn') {
                 todoTitle.classList.toggle('completed');
                 completeBtn.classList.toggle('completed');
-            }
-            else if(completeBtn.contains('completed')) {
-                todoTitle.classList.toggle('uncompleted');
-                completeBtn.classList.toggle('uncompleted');
-            }
-
-            if(!todo.completed) {
                 await completeTodo (todo._id, true);
                 return;
             }
-            else{
+            else if(todo.completed && completeBtn.classList[0] === 'complete-btn') {
+                todoTitle.classList.remove('completed');
+                completeBtn.classList.remove('completed');
                 await completeTodo (todo._id, false);
-                return;
+                return;   
             }
         });
         
@@ -152,7 +160,6 @@ const completeTodo = async (id, complete) => {
     const todoData = await response.json();
     console.log("Completed: " + todoData.completed + " " + todoData._id);
     
-    getTodoList();
 };
 
 //Event Listeners
