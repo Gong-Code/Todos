@@ -88,32 +88,6 @@ const getTodoList = async () => {
 
 getTodoList();
 
-//POST
-const addTodo = async (event) => {
-    event.preventDefault();
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            title: todoInput.value,
-        }),
-    });   
-    
-    if(!response.ok) {
-        console.log('Error', response.status);
-        return;
-    }
-
-    const todoData = await response.json();
-    console.log(todoData)
-    
-    createTodo();
-
-    todoInput.value = "";
-};
 
 //DELETE
 const deleteTodo = async (id) => {
@@ -159,6 +133,8 @@ const completeTodo = async (id, complete) => {
 };
 
 //Event Listeners
+
+//Post
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
