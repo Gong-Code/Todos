@@ -22,11 +22,16 @@ header,form{
     align-items: center;
 }
 
+form{
+    position: relative;
+}
+
 form input, form button{
     padding: 0.5rem;
     font-size: 2rem;
     border: none;
     background: white;
+    
 }
 
 form input, form button{
@@ -40,15 +45,13 @@ form input, form button{
 }
 
 .error-message{
-    color: red;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-    display: block;
     position: absolute;
-    bottom: 53%;
-    left: 0;
-    right: 0;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 65px;
     text-align: center;
+    color: red;
     display: none;
 }
 
