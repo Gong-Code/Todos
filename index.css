@@ -43,6 +43,12 @@ form input, form button{
     color: red;
     font-size: 0.8rem;
     margin-bottom: 1rem;
+    display: block;
+    position: absolute;
+    bottom: 53%;
+    left: 0;
+    right: 0;
+    text-align: center;
     display: none;
 }
 
