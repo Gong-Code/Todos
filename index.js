@@ -109,7 +109,6 @@ const deleteTodo = async (id) => {
 
 //PUT
 const completeTodo = async (id, complete) => {
-    
     const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     console.log(toCompleteUrl)
     const response = await fetch(toCompleteUrl, {
@@ -181,18 +180,18 @@ function createTodo() {
     newTodoTitle.innerText = todoInput.value;
     newTodoTitle.classList.add('todo-item');
     newTodoTitle.setAttribute("id", "list-item")
-    todoDiv.appendChild(newTodoTitle);
-
+    
     const completeBtn = document.createElement('button');
     completeBtn.innerHTML = '<i class="fas fa-check"></i>';
     completeBtn.classList.add('complete-btn');
-    todoDiv.appendChild(completeBtn);
 
     const trashBtn = document.createElement('button');
     trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
     trashBtn.classList.add('trash-btn');
-    todoDiv.appendChild(trashBtn);
 
+    todoDiv.appendChild(trashBtn);
+    todoDiv.appendChild(completeBtn);
+    todoDiv.appendChild(newTodoTitle);
     todoList.appendChild(todoDiv);
 }
 
