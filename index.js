@@ -99,8 +99,6 @@ const addTodo = async (event) => {
         return;
     }
 
-    validateInput(todoInput);
-
     const todoData = await response.json();
     console.log(todoData)
     
@@ -153,31 +151,36 @@ const completeTodo = async (id, complete) => {
 };
 
 //Event Listeners
-todoBtn.addEventListener('click', async (event) => {
+form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            title: todoInput.value,
-        }),
-    });   
+
+    if(!validateInput(todoInput)) return;
+
+    try{
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: todoInput.value,
+            }),
+        });
+        
+        if(!response.ok) {
+            console.log('Error', response.status);
+            return;
+        }
+        
+        const todoData = await response.json();
+        console.log(todoData)
     
-    if(!response.ok) {
-        console.log('Error', response.status);
-        return;
+        createTodo();
+    
+    } catch (error) {
+        console.log("Error: " + error);
     }
 
-    validateInput(todoInput);
-
-    const todoData = await response.json();
-    console.log(todoData)
-    
-    createTodo();
-
-    todoInput.value = "";
 });
 
 
@@ -205,16 +208,29 @@ function createTodo() {
 
     todoList.appendChild(todoDiv);
 }
- 
-function validateInput(input){
+
+function validateInput(input) {
+    const parent = input.parentElement;
+    const errorMessage = parent.querySelector(".error-message");
     
-    if(input.value.trim() === '' && input.value.length < 2){
-    
+    if (input.value.trim() === "") {
+        parent.classList.add("invalid");
+        errorMessage.innerHTML = "This field can not be empty";
         return false;
-    } else {
+    } 
+    else if(input.value.trim().length < 3) {
+        parent.classList.add("invalid");
+        errorMessage.innerHTML = "The todo must be at least 3 characters long";
+        return false;
+    }   
+    else {
+        parent.classList.remove("invalid");
+        errorMessage.innerHTML = "";
         return true;
     }
 }
+
+
 
 
 

@@ -35,15 +35,16 @@ form input, form button{
     border: none;
     background: white;
 }
-
+.invalid .error-message{
+    display: block;
+}
 
 .error-message{
     color: red;
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-bottom: 1rem;
-    text-align: center;
+    display: none;
 }
-
 
 form button{
     color: #2C73D2;
@@ -114,6 +115,6 @@ form button:hover{
 }
 
 .fall{
-    transform: translate(8rem) rotate(20deg);
+    transform: translate(8rem) rotateZ(20deg);
     opacity: 0;
 }
