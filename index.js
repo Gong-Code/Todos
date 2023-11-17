@@ -197,13 +197,7 @@ function createTodo() {
 
 function validateInput(input) {
     const parent = input.parentElement;
-    let errorMessage = parent.querySelector(".error-message");
-
-    if (!errorMessage) {
-        errorMessage = document.createElement('p');
-        errorMessage.classList.add('error-message');
-        input.insertAdjacentElement('afterend', errorMessage);
-    }
+    const errorMessage = parent.querySelector(".error-message");
     
     if (input.value.trim() === "") {
         parent.classList.add("invalid");
