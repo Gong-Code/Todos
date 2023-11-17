@@ -118,3 +118,45 @@ form button:hover{
     transform: translate(8rem) rotateZ(20deg);
     opacity: 0;
 }
+
+.popup{
+    width: 400px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: firebrick;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup{
+    visibility: visible;
+    top: 50%;
+    animation: open 0.5s forwards;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2{
+    margin: 30px 0 10px;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0; 
+    background: firebrick;
+    color: #fff;  
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}

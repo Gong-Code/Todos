@@ -5,6 +5,8 @@ const todoInput = document.querySelector('.todo-input');
 const todoBtn = document.querySelector('.todo-btn');
 const todoList = document.querySelector('.todo-list');
 const form = document.querySelector('form');
+const popup = document.querySelector('#popup');
+const closeBtn = document.querySelector('.close');
 
 const todoListArr = [];
 
@@ -23,10 +25,8 @@ const getTodoList = async () => {
 
     todoListArr.push(todoData);
     
-    //Clear the todo list
-    todoList.innerHTML = '';
+    todoList.innerHTML = "";
 
-    //Loop through the todo items and create a new DOM element for each item
     todoData.forEach(todo => {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo');
@@ -40,7 +40,7 @@ const getTodoList = async () => {
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
         completeBtn.classList.add('complete-btn');
         completeBtn.setAttribute("id", todo._id);
-        completeBtn.addEventListener('click', async (event) => {
+        completeBtn.addEventListener('click', async () => {
             
             if(todo.completed === true) { 
                 todoTitle.classList.toggle('completed');
@@ -64,9 +64,15 @@ const getTodoList = async () => {
         deleteBtn.classList.add('trash-btn');
         deleteBtn.setAttribute("id", todo._id);
         deleteBtn.addEventListener('click', async () => {
-            if(deleteBtn.classList[0] === 'trash-btn') {
-                deleteBtn.classList.add('fall');
-                todoTitle.classList.add('fall');
+            if(todo.completed === false) {
+                popup.classList.add("open-popup");
+                closeBtn.addEventListener('click', () => {
+                    popup.classList.remove("open-popup");
+                })
+                
+                return;
+            }
+            else if(todo.completed === true){
                 await deleteTodo(todo._id);
             }
         });
@@ -74,8 +80,10 @@ const getTodoList = async () => {
         todoDiv.appendChild(todoTitle);
         todoDiv.appendChild(completeBtn);
         todoDiv.appendChild(deleteBtn);
-        todoList.appendChild(todoDiv);        
+        todoList.appendChild(todoDiv); 
+        
     });
+
 };
 
 getTodoList();
@@ -232,9 +240,5 @@ function validateInput(input) {
         return true;
     }
 }
-
-
-
-
 
 
