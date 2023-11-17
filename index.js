@@ -180,18 +180,18 @@ function createTodo() {
     newTodoTitle.innerText = todoInput.value;
     newTodoTitle.classList.add('todo-item');
     newTodoTitle.setAttribute("id", "list-item")
-    
+    todoDiv.appendChild(newTodoTitle);
+
     const completeBtn = document.createElement('button');
     completeBtn.innerHTML = '<i class="fas fa-check"></i>';
     completeBtn.classList.add('complete-btn');
+    todoDiv.appendChild(completeBtn);
 
     const trashBtn = document.createElement('button');
     trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
     trashBtn.classList.add('trash-btn');
-
     todoDiv.appendChild(trashBtn);
-    todoDiv.appendChild(completeBtn);
-    todoDiv.appendChild(newTodoTitle);
+
     todoList.appendChild(todoDiv);
 }
 
