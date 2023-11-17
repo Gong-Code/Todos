@@ -198,7 +198,7 @@ function createTodo() {
 function validateInput(input) {
     const parent = input.parentElement;
     const errorMessage = parent.querySelector(".error-message");
-
+    
     if (input.value.trim() === "") {
         parent.classList.add("invalid");
         errorMessage.innerHTML = "This field can not be empty";
