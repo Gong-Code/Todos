@@ -12,7 +12,7 @@ const todoListArr = [];
 
 //HTTP Requests
 
-// GET
+// GET (Get all the todo list from the server and display them on the page)
 const getTodoList = async () => {
     const response = await fetch(url);
 
@@ -89,7 +89,7 @@ const getTodoList = async () => {
 getTodoList();
 
 
-//DELETE
+//DELETE (Delete a todo from the server and from the page)
 const deleteTodo = async (id) => {
     const toDeleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     const response = await fetch(toDeleteUrl, {
@@ -107,7 +107,7 @@ const deleteTodo = async (id) => {
     getTodoList();
 }
 
-//PUT
+//PUT (Update a completed status of a todo and display it on the page)
 const changeTodoStatus = async (id, complete) => {
     const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     console.log(toCompleteUrl)
@@ -133,7 +133,7 @@ const changeTodoStatus = async (id, complete) => {
 
 //Event Listeners
 
-//Post
+//Post (Create a new todo on the server and on the page)
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -171,6 +171,7 @@ form.addEventListener('submit', async (event) => {
 
 
 //Functions
+//Create a new todo
 function createTodo() {
 
     const todoDiv = document.createElement('div');
@@ -194,7 +195,7 @@ function createTodo() {
 
     todoList.appendChild(todoDiv);
 }
-
+//Validate input
 function validateInput(input) {
     const parent = input.parentElement;
     const errorMessage = parent.querySelector(".error-message");
