@@ -114,7 +114,7 @@ const deleteTodo = async (id) => {
 }
 
 //PUT (Update a completed status of a todo and display it on the page)
-const changeTodoStatus = async (id, complete) => {
+const changeTodoStatus = async (id, status) => {
     const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     console.log(toCompleteUrl)
     const response = await fetch(toCompleteUrl, {
@@ -123,7 +123,7 @@ const changeTodoStatus = async (id, complete) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            completed: complete,
+            completed: status,
         }),        
     });
     
