@@ -9,7 +9,7 @@ Detta är en enkel Todo applikation byggd med JavaScript. Den låter användare 
 ## Användning
 För att använda denna applikation, skriv helt enkelt din todo-uppgift i inmatningsfältet och tryck på Enter. 
 Den nya todo-uppgiften kommer att visas i listan nedan. 
-Du kan märka en todo-uppgift som slutförd genom att klicka på kryssrutan, och du kan radera en todo-uppgift genom att klicka på papperskorgsknappen.
+Du kan märka en todo-uppgift som slutförd genom att klicka på check knappen, och du kan radera en todo-uppgift genom att klicka på papperskorgsknappen.
 
 
 
