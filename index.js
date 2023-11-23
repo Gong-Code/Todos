@@ -171,6 +171,7 @@ form.addEventListener('submit', async (event) => {
 
 
 //Functions
+
 //Create a new todo
 function createTodo() {
 
