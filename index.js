@@ -36,11 +36,14 @@ const getTodoList = async () => {
         todoTitle.classList.add('todo-item');
         todoTitle.setAttribute("id", todo._id);
         
-
+        
         const completeBtn = document.createElement('button');
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
         completeBtn.classList.add('complete-btn');
         completeBtn.setAttribute("id", todo._id);
+
+        // check if the todo is completed and add the class to the title and the button
+        // Update the status of the todo on the server
         if(todo.completed === true) { 
             todoTitle.classList.add('completed');
             completeBtn.classList.add('completed');
@@ -63,6 +66,9 @@ const getTodoList = async () => {
         deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
         deleteBtn.classList.add('trash-btn');
         deleteBtn.setAttribute("id", todo._id);
+
+        // check for the completed status and if completed is false, show the popup and don't delete the todo
+        // if completed is true, delete the todo
         deleteBtn.addEventListener('click', async () => {
             if(todo.completed === false) {
                 popup.classList.add("open-popup");
