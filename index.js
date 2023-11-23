@@ -35,27 +35,27 @@ const getTodoList = async () => {
         todoTitle.innerText = todo.title;
         todoTitle.classList.add('todo-item');
         todoTitle.setAttribute("id", todo._id);
+        
 
         const completeBtn = document.createElement('button');
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
         completeBtn.classList.add('complete-btn');
         completeBtn.setAttribute("id", todo._id);
+        if(todo.completed === true) { 
+            todoTitle.classList.add('completed');
+            completeBtn.classList.add('completed');
+        }
         completeBtn.addEventListener('click', async () => {
             
-            if(todo.completed === true) { 
-                todoTitle.classList.toggle('completed');
-                completeBtn.classList.toggle('completed');
-                todo.completed = false;
-                await completeTodo (todo._id, false);
-                return;
-            }
-            else if(todo.completed === false) {
-                todoTitle.classList.toggle('completed');
-                completeBtn.classList.toggle('completed');
-                todo.completed = true;
-                await completeTodo (todo._id, true);
-                return;
-            }
+            todoTitle.classList.toggle('completed');
+            completeBtn.classList.toggle('completed');
+
+            const newStatus = !todo.completed;
+            await changeTodoStatus (todo._id, newStatus);
+
+            todo.completed = newStatus;
+
+            console.log(newStatus)
         });
         
 
@@ -108,7 +108,7 @@ const deleteTodo = async (id) => {
 }
 
 //PUT
-const completeTodo = async (id, complete) => {
+const changeTodoStatus = async (id, complete) => {
     const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     console.log(toCompleteUrl)
     const response = await fetch(toCompleteUrl, {
