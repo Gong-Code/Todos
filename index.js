@@ -178,7 +178,7 @@ form.addEventListener('submit', async (event) => {
 
 //Functions
 
-//Create a new todo
+//Create a new todo element
 function createTodo() {
 
     const todoDiv = document.createElement('div');
