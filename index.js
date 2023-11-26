@@ -53,12 +53,12 @@ const getTodoList = async () => {
             todoTitle.classList.toggle('completed');
             completeBtn.classList.toggle('completed');
 
-            const newStatus = !todo.completed;
-            await changeTodoStatus (todo._id, newStatus);
+            const currentStatus = !todo.completed;
+            await completedStatus (todo._id, currentStatus);
 
-            todo.completed = newStatus;
+            todo.completed = currentStatus;
 
-            console.log(newStatus)
+            console.log(currentStatus)
         });
         
 
@@ -114,7 +114,7 @@ const deleteTodo = async (id) => {
 }
 
 //PUT (Update a completed status of a todo and display it on the page)
-const changeTodoStatus = async (id, status) => {
+const completedStatus = async (id, status) => {
     const toCompleteUrl = `https://js1-todo-api.vercel.app/api/todos/${id}?apikey=f7fd3a3c-eb82-4a22-921c-5e6c0ec86967`;
     console.log(toCompleteUrl)
     const response = await fetch(toCompleteUrl, {
