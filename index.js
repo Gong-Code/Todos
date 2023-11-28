@@ -35,8 +35,6 @@ const getTodoList = async () => {
         todoTitle.innerText = todo.title;
         todoTitle.classList.add('todo-item');
         todoTitle.setAttribute("id", todo._id);
-        
-        
         const completeBtn = document.createElement('button');
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
         completeBtn.classList.add('complete-btn');
